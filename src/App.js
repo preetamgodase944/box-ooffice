@@ -1,11 +1,21 @@
 import React from 'react';
-
+import { Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div >
-      Hi
-    </div>
+    <Switch>
+      <Route exact path="/">
+        This is Home
+      </Route>
+
+      <Route exact  path="/starred">
+        This is Starred
+      </Route>
+
+      <Route>
+     `` Invalid Page Search
+      </Route>
+    </Switch>
   );
 }
 

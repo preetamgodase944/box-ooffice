@@ -1,8 +1,5 @@
-
-// .eslintrc
 {
-  "extends": ["eslint:recommended", "airbnb", "prettier", "prettier/react"],
-  "plugins": ["react-hooks"],
+  "extends": ["airbnb", "prettier"],
   "env": {
     "browser": true
   },
@@ -14,8 +11,7 @@
     "react/jsx-props-no-spreading": [0],
     "import/prefer-default-export": [0],
     "react/no-array-index-key": [0],
-    "react/no-danger": [0],
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "arrow-body-style": [0],
+    "prefer-arrow-callback": [0] 
   }
 }

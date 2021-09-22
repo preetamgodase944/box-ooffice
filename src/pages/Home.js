@@ -9,6 +9,13 @@ const Home = () => {
   const [ results, setResults ]=useState(null);
   const [searchOption,setSearchOption]=useState("shows");
  
+  // useEffect is a hook which takes two argument a callback function and list of dependecies
+  // the function is called when a dependecy is either mount-unmount-render etc
+  // useEffect function as a cleanup function which is returend from the callback func
+  // so it is executed just before a component is unmouted
+
+  
+
   const isSearchShows = searchOption==='shows'
   const onInputChange = (ev)=>{
     setInputState(ev.target.value);

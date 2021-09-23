@@ -5,6 +5,7 @@ import { apiGet } from '../misc/config';
 import Cast from './show/Cast';
 import Details from './show/Details';
 import Seasons from './show/Seasons';
+import { InfoBlock, ShowPageWrapper } from './show/Show.styled';
 import ShowMainData from './show/ShowMainData';
 
 
@@ -60,25 +61,25 @@ const Show = () => {
   };
 
   return (
-    <div>
+    <ShowPageWrapper >
       <ShowMainData image={show.image} name={show.name} rating={show.rating} summary={show.summary} tags={show.genres}/>
 
-      <div>
+      <InfoBlock>
         <h2>Details</h2>
         <Details status={show.status} network={show.network} premiered={show.premiered}/>
-      </div>
-      <div>
+      </InfoBlock>
+      <InfoBlock>
         <h2>Seasons</h2>
         <Seasons seasons={show._embedded.seasons}/>
-      </div>
-      <div>
+      </InfoBlock>
+      <InfoBlock>
         <h2>Cast</h2>
         <Cast cast={show._embedded.cast}/>
-      </div>
+      </InfoBlock>
       
       
       
-    </div>
+    </ShowPageWrapper>
   )
 };
 

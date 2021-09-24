@@ -7,8 +7,9 @@ function showsReducer(prevState, action){
     }
 
     case 'REMOVE':{
-      return prevState.filter((showId)=>showId !== action.showID);
+      return prevState.filter((showId)=>showId !== action.showId);
     }
+    
 
     default: return prevState;
   }
@@ -20,7 +21,7 @@ function usePersistedReducer(reducer,initialState, key){
 
     const persisted =localStorage.getItem(key);
     
-    return persisted ? JSON.parser(persisted): initial;
+    return persisted ? JSON.parse(persisted): initial;
   })
 
   useEffect(() => {
@@ -32,6 +33,6 @@ function usePersistedReducer(reducer,initialState, key){
 
 }
 
-function useShows(key='shows'){
+export function useShows(key='shows'){
   return usePersistedReducer(showsReducer, [],key);
 }

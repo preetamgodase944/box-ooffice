@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useCallback } from 'react'
 import ActorGrid from '../components/actor/ActorGrid';
 import CustomRadio from '../components/CustomRadio';
 import MainPageLayout from '../components/MainPageLayout'
@@ -7,23 +7,39 @@ import {  apiGet } from '../misc/config'
 import { useLastquery } from '../misc/custom-hooks';
 import {SearchInput,SearchButtonWrapper, RadioInputsWrapper} from './Home.styled' 
 
+const renderResults=(results)=>{
+
+  if(results && results.length ===0){
+    return <div>No Results...</div>
+  }
+
+  if(results && results.length >0){
+    return results[0].show ? 
+    <ShowGrid data={results}/>
+    : <ActorGrid data={results}/>
+  }
+
+  return null;
+}
 const Home = () => {
   const [input, setInputState]=useLastquery();
   const [ results, setResults ]=useState(null);
   const [searchOption,setSearchOption]=useState("shows");
- 
+  
   // useEffect is a hook which takes two argument a callback function and list of dependecies
   // the function is called when a dependecy is either mount-unmount-render etc
   // useEffect function as a cleanup function which is returend from the callback func
   // so it is executed just before a component is unmouted
-
+  
   
 
-  const isSearchShows = searchOption==='shows'
-  const onInputChange = (ev)=>{
-    setInputState(ev.target.value);
-  }
+  const isSearchShows = searchOption==='shows';
 
+  
+  const onInputChange = useCallback(ev=>{
+    setInputState(ev.target.value);
+  },[setInputState]);
+  
   const onSearch=()=>{
 
     apiGet(`search/${searchOption}?q=${input}`).then(result =>(
@@ -31,7 +47,6 @@ const Home = () => {
     // https://api.tvmaze.com/search/shows?q=girls
     
      )};
-
   //  for enter vtn function(google Js keycode for ENTER and verify it then call the func)
   const onKeyDown = (ev)=>{
     if(ev.key === 'Enter'){
@@ -39,24 +54,13 @@ const Home = () => {
     }
 
   };
+  
 
-  const onRadioChange=(ev)=>{
-    setSearchOption(ev.target.value)
-  }
-  const renderResults=()=>{
 
-    if(results && results.length ===0){
-      return <div>No Results...</div>
-    }
+  const onRadioChange=useCallback(ev => {
+      setSearchOption(ev.target.value);
+    },[]);
 
-    if(results && results.length >0){
-      return results[0].show ? 
-      <ShowGrid data={results}/>
-      : <ActorGrid data={results}/>
-    }
-
-    return null;
-  }
 
   return (
     <MainPageLayout>
@@ -96,7 +100,7 @@ const Home = () => {
         placeholder="Search for something..">Search
       </button>
     </SearchButtonWrapper>
-     {renderResults()}
+     {renderResults(results)}
     </MainPageLayout>
   )
 }
